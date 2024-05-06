@@ -1,56 +1,68 @@
 from flask import Flask, request, jsonify
-from langchain.document_loaders import PyPDFLoader
-from langchain.embeddings import OpenAIEmbeddings
+from PyPDF2 import PdfReader
 from langchain.vectorstores import FAISS
-from langchain.chains import ChatVectorDBChain
-from langchain.llms import OpenAI
-import config
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.chains.question_answering import load_qa_chain
+from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
-embeddings = OpenAIEmbeddings(openai_api_key="sk-proj-xgkPM1M2WVHtqUD3s1dpT3BlbkFJzyAgxl7LAGtlL9NZCVL3")
+
+docsearch = None
+chain = None
 
 
 @app.route('/upload', methods=['POST'])
-def upload_pdf():
-    
+def upload():
+    global docsearch, chain
+
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
 
-    file = request.files['file']
-
-    if file.filename == '':
+    pdf_file = request.files['file']
+    if pdf_file.filename == '':
         return jsonify({'error': 'No selected file'})
+    
+    # Read PDF content
+    text = ''
+    pdf_reader = PdfReader(pdf_file)
+    for page in pdf_reader.pages:
+        text += page.extract_text()
 
-    if file:
-        loader = PyPDFLoader("Resume.pdf")
-        pages = loader.load_and_split()
-        db = FAISS.from_documents(pages, embeddings)
-        
+    # Split text into chunks
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=512,
+        chunk_overlap=32,
+        length_function=len,
+    )
+    texts = text_splitter.split_text(text)
 
-        chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff")
+    # Generate embeddings and create search index
+    embeddings = OpenAIEmbeddings()
+    docsearch = FAISS.from_texts(texts, embeddings)
+    chain = load_qa_chain(ChatOpenAI(), chain_type="stuff")
 
-        query = "Who created transformers?"
-        docs = db.similarity_search(query)
-
-        
-        # vectordb = Chroma.from_documents(pages, embedding = embeddings, persist_directory = '.')
-        # vectordb.persist()
-        # pdf_qa = ChatVectorDBChain.from_llm(OpenAI(temperature = 0.9, model_name="gpt-3.5-turbo"), vectordb, return_source_documents=True)
-        return jsonify({'message': chain.run(input_documents=docs, question=query)})
-
-
+    return jsonify({'message': 'PDF analyzed successfully'})
 
 @app.route('/query', methods=['POST'])
-def query_pdf():
-    if 'query' not in request.json:
-        return jsonify({'error': 'No query provided'})
+def query_model():
+    global docsearch, chain
+    if docsearch is None or chain is None:
+        return jsonify({'error': 'Upload pdf first'})
 
-    query = request.json['query']
+    data = request.json
+    query = data.get('query')
 
-    response = pdf_qa({"question": query, "chat_history": ""})
+    if not query:
+        return jsonify({'error': 'Query not provided'})
 
-    return jsonify({'response': response["answer"]})
+    docs = docsearch.similarity_search(query)
+    answer = chain.run({"input_documents": docs, "question": query})
+
+    return jsonify({'answer': answer})
 
 if __name__ == '__main__':
     app.run(debug=True)
