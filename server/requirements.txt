@@ -25,6 +25,7 @@ fastapi==0.111.0
 fastapi-cli==0.0.2
 filelock==3.14.0
 Flask==3.0.3
+Flask-Cors==4.0.1
 flatbuffers==24.3.25
 frozenlist==1.4.1
 fsspec==2024.3.1
@@ -46,10 +47,10 @@ jsonpatch==1.33
 jsonpointer==2.4
 kubernetes==29.0.0
 langchain==0.0.316
-langchain-community==0.0.36
-langchain-core==0.1.50
+langchain-community==0.0.37
+langchain-core==0.1.52
 langchain-text-splitters==0.0.1
-langsmith==0.0.92
+langsmith==0.1.0
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 marshmallow==3.21.2

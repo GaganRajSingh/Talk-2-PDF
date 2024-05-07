@@ -1,0 +1,25 @@
+.chat {
+	width: 75%;
+	height: 100%;
+	background-color: rgb(55, 88, 117);
+}
+
+.flex {
+	display: flex;
+	justify-content: center;
+}
+
+.query {
+	position: absolute;
+	bottom: 40px;
+	width: 700px;
+}
+
+.queryInput {
+	width: 100%;
+	height: 35px;
+}
+
+.margin_10 {
+	margin: 10px;
+}
