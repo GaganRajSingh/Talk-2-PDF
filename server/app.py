@@ -22,11 +22,11 @@ def upload():
     global docsearch, chain
 
     if 'file' not in request.files:
-        return jsonify({'error': 'No file part'})
+        return jsonify({'error': 'No file part'}), 400
 
     pdf_file = request.files['file']
     if pdf_file.filename == '':
-        return jsonify({'error': 'No selected file'})
+        return jsonify({'error': 'No selected file'}), 400
     
     # Read PDF content
     text = ''
@@ -47,24 +47,24 @@ def upload():
     docsearch = FAISS.from_texts(texts, embeddings)
     chain = load_qa_chain(ChatOpenAI(), chain_type="stuff")
 
-    return jsonify({'message': 'PDF analyzed successfully'})
+    return jsonify({'message': 'PDF analyzed successfully'}), 200
 
 @app.route('/query', methods=['POST'])
 def query_model():
     global docsearch, chain
     if docsearch is None or chain is None:
-        return jsonify({'error': 'Upload pdf first'})
+        return jsonify({'error': 'Upload pdf first'}), 400
 
     data = request.json
     query = data.get('query')
 
     if not query:
-        return jsonify({'error': 'Query not provided'})
+        return jsonify({'error': 'Query not provided'}), 400
 
     docs = docsearch.similarity_search(query)
     answer = chain.run({"input_documents": docs, "question": query})
 
-    return jsonify({'answer': answer})
+    return jsonify({'message': answer}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

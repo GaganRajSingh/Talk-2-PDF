@@ -1,3 +1,3 @@
 export interface queryResponse {
-	answer: string;
+	message: string;
 }
