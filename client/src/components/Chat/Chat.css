@@ -9,7 +9,7 @@
 	justify-content: center;
 }
 
-.query {
+.queryBox {
 	position: absolute;
 	bottom: 40px;
 	width: 700px;
@@ -22,4 +22,17 @@
 
 .margin_10 {
 	margin: 10px;
+}
+
+.chatBox {
+	position: absolute;
+	bottom: 120px;
+	top: 20px;
+	width: 60%;
+	background-color: white;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	overflow: hidden;
 }
