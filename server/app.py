@@ -13,13 +13,13 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-docsearch = None
-chain = None
+docs = []
+chains = []
 
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    global docsearch, chain
+    global docs, chains
 
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -46,25 +46,40 @@ def upload():
     embeddings = OpenAIEmbeddings()
     docsearch = FAISS.from_texts(texts, embeddings)
     chain = load_qa_chain(ChatOpenAI(), chain_type="stuff")
-
+    docs.append(docsearch)
+    chains.append(chain)
     return jsonify({'message': 'PDF analyzed successfully'}), 200
 
 @app.route('/query', methods=['POST'])
 def query_model():
-    global docsearch, chain
-    if docsearch is None or chain is None:
+    global docs, chains
+    if not docs or not chains:
         return jsonify({'error': 'Upload pdf first'}), 400
 
     data = request.json
     query = data.get('query')
+    index = data.get('index')
 
-    if not query:
+    if query is None:
         return jsonify({'error': 'Query not provided'}), 400
+    if index is None or index >= len(docs):
+        return jsonify({'error': 'Wrong index'}), 400
 
-    docs = docsearch.similarity_search(query)
-    answer = chain.run({"input_documents": docs, "question": query})
+    documents = docs[index].similarity_search(query)
+    answer = chains[index].run({"input_documents": documents, "question": query})
 
     return jsonify({'message': answer}), 200
+
+@app.route('/clear', methods=['POST'])
+def clear_state():
+    global docs, chains
+    if not docs or not chains:
+        return jsonify({'error': 'Nothing to clear'}), 400
+
+    docs = []
+    chains = []
+    return jsonify({'message': "State cleared"}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)
