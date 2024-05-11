@@ -7,7 +7,6 @@
 .question {
 	width: fit-content;
 	max-width: 60%;
-	float: right;
 	text-align: right;
 	background-color: rgb(145, 212, 241);
 }
@@ -15,7 +14,6 @@
 .answer {
 	width: fit-content;
 	max-width: 60%;
-	float: left;
 	text-align: left;
 	background-color: rgb(243, 234, 242);
 }
@@ -23,4 +21,14 @@
 .bubble {
 	border-radius: 15px;
 	padding: 15px;
+}
+
+.flexEnd {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.flexStart {
+	display: flex;
+	justify-content: flex-start;
 }

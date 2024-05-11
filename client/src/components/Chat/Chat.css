@@ -1,23 +1,39 @@
 .chat {
 	width: 75%;
-	height: 100%;
-	background-color: rgb(55, 88, 117);
+	box-sizing: border-box;
+	padding: 25px;
+	background-color: rgb(7, 42, 73);
+}
+
+.iconColor {
+	color: #57596f;
 }
 
 .flex {
 	display: flex;
-	justify-content: center;
+}
+
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .queryBox {
-	position: absolute;
-	bottom: 40px;
-	width: 700px;
+	width: 800px;
+	align-items: center;
 }
 
 .queryInput {
 	width: 100%;
-	height: 35px;
+	height: 50px;
+	background-color: rgb(20, 20, 20);
+	border-radius: 10px;
+	border: 0;
+	padding: 5px 15px;
+	font-size: large;
+	color: white;
 }
 
 .margin_10 {
@@ -25,14 +41,8 @@
 }
 
 .chatBox {
-	position: absolute;
-	bottom: 120px;
-	top: 20px;
-	width: 60%;
-	background-color: white;
+	width: 90%;
 	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	overflow: hidden;
+	overflow-y: auto;
+	background-color: aliceblue;
 }

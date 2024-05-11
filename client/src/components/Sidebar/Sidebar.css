@@ -1,5 +1,17 @@
 .sidebar {
 	width: 25%;
-	height: 100%;
-	background-color: blue;
+	padding: 25px;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+.uploadedFile {
+	padding: 0px 15px;
+	background-color: rgb(196, 222, 223);
+	border-radius: 5px;
+	margin-top: 20px;
+	/* height: 30px; */
+	display: flex;
+	justify-content: left;
+	align-items: center;
 }

@@ -5,17 +5,17 @@ const ChatMessages = ({ messages }: ChatMessagesProp) => {
 	return (
 		<>
 			{messages.map((message, index) => {
-				return (
-					<div className="messageArea">
-						{index % 2 ? (
-							<div className="answer bubble">
-								<span>{message}</span>
-							</div>
-						) : (
-							<div className="question bubble">
-								<span>{message}</span>
-							</div>
-						)}
+				return index % 2 ? (
+					<div className="messageArea flexStart" key={index}>
+						<div className="answer bubble">
+							<span>{message}</span>
+						</div>
+					</div>
+				) : (
+					<div className="messageArea flexEnd" key={index}>
+						<div className="question bubble">
+							<span>{message}</span>
+						</div>
 					</div>
 				);
 			})}

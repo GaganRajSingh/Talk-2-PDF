@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChatProps } from "./Chat.types";
 import { sendQuery } from "../../utils/api";
 import "./Chat.css";
 import ChatMessages from "./ChatMessages/ChatMessages";
+import SendIcon from "@mui/icons-material/Send";
+import { Icon } from "@mui/material";
 
 const Chat = (props: ChatProps) => {
 	const [queryText, setQueryText] = useState<string>("");
 	const [chatMessages, setChatMessages] = useState<string[]>([]);
+	const chatBoxRef = useRef<HTMLDivElement>(null);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQueryText(e.target.value);
@@ -27,13 +30,19 @@ const Chat = (props: ChatProps) => {
 			});
 	};
 
+	useEffect(() => {
+		if (chatBoxRef.current) {
+			chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+		}
+	}, [chatMessages]);
+
 	const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key == "Enter") handleSubmit();
 	};
 
 	return (
-		<div className="chat flex">
-			<div className="chatBox">
+		<div className="chat flexColumn">
+			<div className="chatBox" ref={chatBoxRef}>
 				<ChatMessages messages={chatMessages} />
 			</div>
 			<div className="queryBox flex">
@@ -43,13 +52,15 @@ const Chat = (props: ChatProps) => {
 					type="text"
 					className="queryInput margin_10"
 					onKeyUp={handleKeyUp}
+					placeholder="Talk to your PDF"
 				></input>
-				<button
+
+				<Icon
+					component={SendIcon}
 					onClick={handleSubmit}
-					className="submitButton margin_10"
-				>
-					Submit
-				</button>
+					fontSize="large"
+					className="iconColor"
+				/>
 			</div>
 		</div>
 	);
