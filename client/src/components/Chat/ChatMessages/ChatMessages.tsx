@@ -4,7 +4,7 @@ import "./ChatMessages.css";
 const ChatMessages = ({ messages }: ChatMessagesProp) => {
 	return (
 		<>
-			{messages.map((message, index) => {
+			{messages?.map((message, index) => {
 				return index % 2 ? (
 					<div className="messageArea flexStart" key={index}>
 						<div className="answer bubble">

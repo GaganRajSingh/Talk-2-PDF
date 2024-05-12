@@ -1,0 +1,15 @@
+.file {
+	background-color: aliceblue;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 10px;
+}
+
+.file:hover {
+	background-color: rgb(196, 226, 253);
+}
+
+.active {
+	background-color: rgb(196, 226, 253);
+	box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.1);
+}

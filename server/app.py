@@ -74,7 +74,7 @@ def query_model():
 def clear_state():
     global docs, chains
     if not docs or not chains:
-        return jsonify({'error': 'Nothing to clear'}), 400
+        return jsonify({'error': 'Nothing to clear'}), 200
 
     docs = []
     chains = []

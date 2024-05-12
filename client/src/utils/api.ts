@@ -1,12 +1,17 @@
-import { FLASK_BASE_URL, FLASK_QUERY_URL, FLASE_UPLOAD_URL } from "./constants";
+import {
+	FLASK_BASE_URL,
+	FLASK_QUERY_URL,
+	FLASK_UPLOAD_URL,
+	FLASK_CLEAR_URL,
+} from "./constants";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { queryResponse } from "./api.types";
 
-const sendQuery = async (question: string): Promise<string> => {
+const sendQuery = async (query: string, index: number): Promise<string> => {
 	try {
 		const response: AxiosResponse<queryResponse> = await axios.post(
 			FLASK_BASE_URL + FLASK_QUERY_URL,
-			{ query: question }
+			{ query: query, index: index }
 		);
 		return response.data.message;
 	} catch (error) {
@@ -20,8 +25,7 @@ const uploadFile = async (file: File): Promise<string> => {
 		formData.append("file", file);
 
 		const response: AxiosResponse<queryResponse> = await axios.post(
-			FLASK_BASE_URL + FLASE_UPLOAD_URL,
-			// { file: file }
+			FLASK_BASE_URL + FLASK_UPLOAD_URL,
 			formData,
 			{
 				headers: {
@@ -36,4 +40,16 @@ const uploadFile = async (file: File): Promise<string> => {
 	}
 };
 
-export { sendQuery, uploadFile };
+const clearModel = async (): Promise<string> => {
+	try {
+		const response: AxiosResponse<queryResponse> = await axios.post(
+			FLASK_BASE_URL + FLASK_CLEAR_URL,
+			{}
+		);
+		return response.data.message;
+	} catch (error) {
+		return "Error: " + (error as AxiosError).message;
+	}
+};
+
+export { sendQuery, uploadFile, clearModel };
