@@ -80,6 +80,25 @@ def clear_state():
     chains = []
     return jsonify({'message': "State cleared"}), 200
 
+@app.route('/delete', methods=['POST'])
+def delete_file():
+    global docs, chains
+    if not docs or not chains:
+        return jsonify({'error': 'Nothing to delete'}), 400
+
+    data = request.json
+    index = data.get('index')
+
+    if index < 0 or index >= len(docs):
+        return jsonify({'error': 'Invalid file'}), 400
+
+    docs.pop(index)
+    chains.pop(index)
+
+    return jsonify({'message': "File deleted"}), 200
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
