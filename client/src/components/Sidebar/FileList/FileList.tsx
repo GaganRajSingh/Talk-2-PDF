@@ -34,10 +34,9 @@ const FileList = () => {
 						onMouseEnter={() => setHoverIndex(index)}
 						onMouseLeave={() => setHoverIndex(-1)}
 					>
-						{fileName}
+						{fileName.replaceAll(".pdf", "")}
 						<Icon
 							component={CloseIcon}
-							fontSize="small"
 							className={
 								hoverIndex == index
 									? "deleteIcon"

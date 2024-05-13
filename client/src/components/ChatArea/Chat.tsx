@@ -7,6 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { Icon } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addChatMessages } from "../../store/reducer";
+import Header from "./Header/Header";
 
 const Chat = (props: ChatProps) => {
 	const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ const Chat = (props: ChatProps) => {
 	);
 
 	const allPDFChats = useAppSelector((state) => state.chat.chatMessages);
+	const allPDFNames = useAppSelector((state) => state.chat.pdfFiles);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQueryText(e.target.value);
@@ -67,27 +69,30 @@ const Chat = (props: ChatProps) => {
 	};
 
 	return (
-		<div className="chat flexColumn">
-			<div className="chatBox" ref={chatBoxRef}>
-				<ChatMessages messages={chatMessages} />
-			</div>
-			<div className="queryBox flex">
-				<input
-					value={queryText}
-					onChange={handleInputChange}
-					type="text"
-					className="queryInput margin_10"
-					onKeyUp={handleKeyUp}
-					placeholder="Talk to your PDF"
-					autoFocus
-				></input>
-
-				<Icon
-					component={SendIcon}
-					onClick={handleSubmit}
-					fontSize="large"
-					className="iconColor"
-				/>
+		<div className="chatArea">
+			<Header fileName={allPDFNames[currentChatIndex]} />
+			<div className="chat flexColumn">
+				<div className="chatBox" ref={chatBoxRef}>
+					<ChatMessages messages={chatMessages} />
+				</div>
+				<div className="queryBox flex">
+					<input
+						value={queryText}
+						onChange={handleInputChange}
+						type="text"
+						className="queryInput"
+						onKeyUp={handleKeyUp}
+						placeholder="Talk to your PDF"
+						autoFocus
+					></input>
+					<div className="sendIconWrapper">
+						<Icon
+							component={SendIcon}
+							onClick={handleSubmit}
+							className="sendIcon"
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

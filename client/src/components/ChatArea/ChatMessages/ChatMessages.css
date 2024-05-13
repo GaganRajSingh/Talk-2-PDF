@@ -1,21 +1,21 @@
 .messageArea {
 	width: 100%;
 	height: fit-content;
-	margin: 5px;
+	margin: 15px 0px;
 }
 
 .question {
 	width: fit-content;
 	max-width: 60%;
 	text-align: right;
-	background-color: rgb(145, 212, 241);
+	background-color: rgb(34, 38, 51);
 }
 
 .answer {
 	width: fit-content;
 	max-width: 60%;
 	text-align: left;
-	background-color: rgb(243, 234, 242);
+	background-color: rgb(109, 117, 235);
 }
 
 .bubble {

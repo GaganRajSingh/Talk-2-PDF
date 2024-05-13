@@ -1,0 +1,71 @@
+.chat {
+	height: calc(100% - 125px);
+	box-sizing: border-box;
+	padding: 25px;
+	background-color: rgb(21, 23, 32);
+	color: white;
+}
+
+.sendIcon {
+	color: #57596f;
+}
+
+.sendIconWrapper {
+	height: 45px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	padding: 2px 12px;
+	background-color: rgb(22, 24, 30);
+	border-radius: 50px;
+	margin-left: 10px;
+}
+
+.sendIconWrapper:hover {
+	background-color: rgb(36, 38, 46);
+}
+
+.flex {
+	display: flex;
+}
+
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.queryBox {
+	width: 70%;
+	align-items: center;
+	background-color: rgb(1, 1, 6);
+	border-radius: 50px;
+	padding: 5px;
+}
+
+.queryInput {
+	width: 100%;
+	height: 40px;
+	background-color: rgb(1, 1, 6);
+	border-radius: 50px;
+	border: 0;
+	padding: 5px 15px;
+	font-size: large;
+	color: white;
+}
+
+.queryInput:focus {
+	border: none;
+	outline: none;
+}
+
+.chatBox {
+	width: 90%;
+	padding: 20px;
+	overflow-y: auto;
+}
+
+.chatArea {
+	width: 100%;
+}

@@ -1,13 +1,14 @@
-import { Button } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { VisuallyHiddenInput } from "./Constants";
 import "./UploadButton.css";
 import { useAppDispatch } from "../../../store/hooks";
 import { uploadFile } from "../../../utils/api";
 import { addFile } from "../../../store/reducer";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import { useRef } from "react";
 
 const UploadButton = () => {
 	const dispatch = useAppDispatch();
+	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handlePDFUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length) {
@@ -22,21 +23,31 @@ const UploadButton = () => {
 		}
 	};
 
+	const handleFabClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	};
+
 	return (
-		<div className="uploadButton">
-			<Button
-				component="label"
-				role={undefined}
-				variant="contained"
-				startIcon={<CloudUploadIcon />}
+		<div className="uploadButton flex">
+			<Fab
+				color="primary"
+				size="small"
+				className="importButton"
+				aria-label="add"
+				onClick={handleFabClick}
 			>
-				Upload PDF
-				<VisuallyHiddenInput
-					type="file"
-					onChange={handlePDFUpload}
-					accept=".pdf"
-				/>
-			</Button>
+				<AddIcon />
+			</Fab>
+			<input
+				type="file"
+				ref={fileInputRef}
+				accept=".pdf"
+				style={{ display: "none" }}
+				onChange={handlePDFUpload}
+			/>
+			<div className="uploadText">New PDF</div>
 		</div>
 	);
 };
