@@ -2,6 +2,12 @@
 
 Talk-2-PDFs enables users to interact with PDF documents using GenAI in a chat format. It facilitates question-answering interactions with uploaded PDFs. The backend is implemented in Python with Flask, leveraging OpenAI and Langchain technologies, while the frontend is developed using React, TypeScript, and Redux.
 
+## Demo 🎥
+
+Check out this demo video to see the project in action!
+
+[![Demo video](https://img.youtube.com/vi/jS1Ef1Oy_xI/0.jpg)](https://www.youtube.com/watch?v=jS1Ef1Oy_xI)
+
 ## Getting Started 🚀
 
 To use Talk-2-PDFs locally, follow these steps:
