@@ -8,22 +8,29 @@ Check out this demo video to see the project in action!
 
 [![Demo video](https://img.youtube.com/vi/jS1Ef1Oy_xI/0.jpg)](https://www.youtube.com/watch?v=jS1Ef1Oy_xI)
 
-## Getting Started 🚀
+## Steps to run 🚀
 
-To use Talk-2-PDFs locally, follow these steps:
-
-### Install Virtualenv
+### 1. Install Virtualenv
 
 ```
 pip3 install virtualenv
 ```
 
-### Clone the repository:
+### 2. Clone the repository:
 
 ```
 git clone https://github.com/GaganRajSingh/Talk-2-PDF.git
 cd Talk-2-PDF
 ```
+
+### 3. Setup Virtual environment:
+
+```
+cd server
+virtualenv venv
+```
+
+### 4. Setup backend:
 
 Add you OpenAI API key in server/.env
 
@@ -31,21 +38,20 @@ Add you OpenAI API key in server/.env
 OPENAI_API_KEY = "<YOUR_OPENAI_API_KEY>"
 ```
 
-### Setup Virtual environment and run the backend:
+Run backend
 
 ```
-cd server
-virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
-
 python3 app.py
 ```
 
-### Setup and run the frontend:
+### 5. Setup and run the frontend:
+
+In second terminal window
 
 ```
-cd ../client
+cd Talk-2-PDF/client
 npm install
 npm start
 ```
