@@ -6,7 +6,7 @@ Talk-2-PDFs enables users to interact with PDF documents using GenAI in a chat f
 
 Check out this demo video to see the project in action!
 
-[![Demo video](https://i.ytimg.com/an_webp/jS1Ef1Oy_xI/mqdefault_6s.webp?du=3000&sqp=CKavqbIG&rs=AOn4CLDKgWnZO8Q0TKU1lmbEgbYhjFkpOQ)](https://www.youtube.com/watch?v=jS1Ef1Oy_xI)
+[![Demo video](https://i3.ytimg.com/vi/jS1Ef1Oy_xI/maxresdefault.jpg)](https://www.youtube.com/watch?v=jS1Ef1Oy_xI)
 
 ## Steps to run 🚀
 
