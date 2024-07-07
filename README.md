@@ -10,50 +10,31 @@ Check out this demo video to see the project in action!
 
 ## Steps to run 🚀
 
-### 1. Install Virtualenv
+### Prerequisites
 
-```
-pip3 install virtualenv
-```
+Docker installed on your machine
 
-### 2. Clone the repository:
+### Setup
+
+#### 1. Clone the Repository
 
 ```
 git clone https://github.com/GaganRajSingh/Talk-2-PDF.git
 cd Talk-2-PDF
 ```
 
-### 3. Setup Virtual environment:
+#### 2. Setup OpenAI API Key
+
+Add your OpenAI API key in `/server/.env` file.
 
 ```
-cd server
-virtualenv venv
+OPENAI_API_KEY = "<YOU_OPENAI_API_KEY>"
 ```
 
-### 4. Setup backend:
-
-Add you OpenAI API key in server/.env
+#### 3. Run the application using Docker
 
 ```
-OPENAI_API_KEY = "<YOUR_OPENAI_API_KEY>"
+docker-compose up
 ```
 
-Run backend
-
-```
-source venv/bin/activate
-pip3 install -r requirements.txt
-python3 app.py
-```
-
-### 5. Setup and run the frontend:
-
-In second terminal window
-
-```
-cd Talk-2-PDF/client
-npm install
-npm start
-```
-
-Now you should be able to access the project locally via your web browser.
+Now you should be able to access the project locally via your web browser at `http://localhost:3000`.
